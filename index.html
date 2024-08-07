@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Conversion</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .converter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .converter input,
+        .converter select,
+        .converter button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .converter button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .converter button:hover {
+            background-color: #0056b3;
+        }
+
+        .results {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Temperature Conversion</h1>
+        <div class="converter">
+            <input type="number" id="tempInput" placeholder="Enter temperature" />
+            <select id="unitInput">
+                <option value="C">Celsius</option>
+                <option value="F">Fahrenheit</option>
+                <option value="K">Kelvin</option>
+            </select>
+            <button onclick="convertTemperature()">Convert</button>
+        </div>
+        <div id="results" class="results">
+            <!-- Converted results will appear here -->
+        </div>
+    </div>
+    <script>function celsiusToFahrenheit(celsius) {
+            return (celsius * 9 / 5) + 32;
+        }
+
+        function celsiusToKelvin(celsius) {
+            return celsius + 273.15;
+        }
+
+        function fahrenheitToCelsius(fahrenheit) {
+            return (fahrenheit - 32) * 5 / 9;
+        }
+
+        function fahrenheitToKelvin(fahrenheit) {
+            return (fahrenheit - 32) * 5 / 9 + 273.15;
+        }
+
+        function kelvinToCelsius(kelvin) {
+            return kelvin - 273.15;
+        }
+
+        function kelvinToFahrenheit(kelvin) {
+            return (kelvin - 273.15) * 9 / 5 + 32;
+        }
+
+        function convertTemperature() {
+            const tempInput = document.getElementById('tempInput').value;
+            const unitInput = document.getElementById('unitInput').value;
+
+            if (!tempInput) {
+                alert("Please enter a temperature value.");
+                return;
+            }
+
+            const value = parseFloat(tempInput);
+            let results = "";
+
+            if (unitInput === "C") {
+                const fahrenheit = celsiusToFahrenheit(value);
+                const kelvin = celsiusToKelvin(value);
+                results = `${value}° Celsius is ${fahrenheit.toFixed(2)}° Fahrenheit and ${kelvin.toFixed(2)} Kelvin.`;
+            } else if (unitInput === "F") {
+                const celsius = fahrenheitToCelsius(value);
+                const kelvin = fahrenheitToKelvin(value);
+                results = `${value}° Fahrenheit is ${celsius.toFixed(2)}° Celsius and ${kelvin.toFixed(2)} Kelvin.`;
+            } else if (unitInput === "K") {
+                const celsius = kelvinToCelsius(value);
+                const fahrenheit = kelvinToFahrenheit(value);
+                results = `${value} Kelvin is ${celsius.toFixed(2)}° Celsius and ${fahrenheit.toFixed(2)}° Fahrenheit.`;
+            }
+
+            document.getElementById('results').innerHTML = results;
+        }
+    </script>
+</body>
+
+</html>
